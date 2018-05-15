@@ -1,0 +1,91 @@
+html{
+    min-height: 100%;
+}
+body{
+    margin: 0 auto;
+    width: 50%;
+    background:
+        linear-gradient(40deg, transparent 40%, #9ab593),
+        linear-gradient(-40deg, #ba7461 20%, #593e4e 90%);
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.container {
+    margin: 50px 0;
+    padding: 10px 20px 40px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+fieldset{
+    border: 2px solid #fff;
+}
+
+fieldset input{
+    color: white;
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.89);
+    background: transparent;
+}
+
+fieldset button#add-item{
+    margin-top: 20px;
+}
+
+button{
+    font-weight: 600;
+    border: none;
+    background: steelblue;
+    color: white;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+table, th, td{
+    border-bottom: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+table{
+    width: 100%;
+    text-align: center;
+}
+
+h3{
+    border-bottom: 4px solid steelblue;
+    padding-bottom: 10px;
+}
+
+table button{
+    cursor: pointer;
+    border: none;
+    width: 100%;
+
+}
+
+.js.toggle::before, .toggle{
+    display: none;
+}
+
+div#history{
+    margin: 10px 0;
+    padding: 5px 10px;
+    font-size: 0.75em;
+    font-weight: 400;
+    background: 
+        linear-gradient(40deg, transparent 40%, #9ab593),
+        linear-gradient(-40deg, #ba7461 20%, #593e4e 90%);
+    color: white;
+}
+
+table .cross{
+    text-decoration: line-through;
+}
+
+.fas{
+    cursor: pointer;
+}
