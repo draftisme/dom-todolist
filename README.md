@@ -10,12 +10,13 @@
       <td><button onClick="deleteItem(this.parentNode.parentNode.id)">Delete</button></td>
     </tr>
   ```
-3. Get value input, then create a new item object with unique automatic-generated id.
-```
-  const newItem = {
-    id, 
-    name,
-    quantity
-  }
-  document.geElementById("#output").innerHTML += newItem;
-``
+3. Get value input, then create a new item object with unique automatic-generated id:
+  For example: 
+  ```
+    const newItem = {
+      id, 
+      name,
+      quantity
+    }
+    document.geElementById("#output").innerHTML += newItem;
+  ```
