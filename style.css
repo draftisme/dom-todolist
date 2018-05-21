@@ -67,7 +67,7 @@ table button{
 
 }
 
-.js.toggle::before, .toggle{
+.toggle{
     display: none;
 }
 

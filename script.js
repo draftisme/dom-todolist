@@ -1,6 +1,8 @@
+let count = 5;
+
 //delete shopping item
-function deleteItem(id){
-    const delete_shopping_item = document.getElementById(id);          
+function deleteItem(event){
+    const delete_shopping_item = event.target.parentNode.parentNode;          
     delete_shopping_item.parentNode.removeChild(delete_shopping_item); 
 }
 
@@ -9,40 +11,46 @@ const checkbox = document.getElementsByClassName("done");
 const shopping_list = document.getElementById("shopping-list").getElementsByTagName("tbody");
 const done_list = document.getElementById("done-list").getElementsByTagName("tbody");
 
-function moveItem(id){
-    const move_shopping_item = document.getElementById(id);
-    const item_name = move_shopping_item.children[1].innerText;
-    const item_quantity = move_shopping_item.children[2].innerText;
-    
+function createItemTD(item__, btn__){
+    const item_id = item__.getAttribute("id");
+    const item_name = item__.children[1].innerText;
+    const item_quantity = item__.children[2].innerText;   
+    const item_class = item__.children[1].getAttribute("class");
+    let item_name_class;
+    item_class === null ? item_name_class = `<td class="cross">${item_name}</td>`
+    : item_name_class = `<td>${item_name}</td>`    
     const item = `
-        <tr id=${id}>
-            <td><i onClick="undoItem(this.parentNode.parentNode.id)" class="fas fa-undo"></i></td>
-            <td class="cross">${item_name}</td>
+        <tr id=${item_id}>
+            <td>${btn__}</td>
+            ${item_name_class}
             <td>${item_quantity}</td>
-            <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+            <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
         </tr>`
-    
-    done_list[0].innerHTML += item;
+    return item;
+}
 
+function moveItem(event){
+    const move_shopping_item = event.target.parentNode.parentNode;
+    const undo_btn = `<i onClick="undoItem(event)" class="fas fa-undo"></i>`
+    const done_shopping_item = createItemTD(move_shopping_item, undo_btn); 
+    done_list[0].innerHTML += done_shopping_item;
     loadHistory();
-
     move_shopping_item.parentNode.removeChild(move_shopping_item);
 }
 
 //add new
 document.getElementById("add-item").addEventListener("click", function(event){
     event.preventDefault();
-
     const item_name = document.getElementById("item_name").value;
     const item_quantity = document.getElementById("item_quantity").value;
-    const id = Math.floor(Math.random() * 1000 + 7);
+    const id = ++count;
     if(item_name !== '' && item_quantity !== ''){
         const newItem = `
         <tr id=${id}>
-            <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)" /></td>
+            <td><input class="done" type="checkbox" onClick="moveItem(event)" /></td>
             <td>${item_name}</td>
             <td>${item_quantity}</td>
-            <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+            <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
         </tr>`
         shopping_list[0].innerHTML += newItem;
     } else{
@@ -53,46 +61,28 @@ document.getElementById("add-item").addEventListener("click", function(event){
 })
 
 //undo
-function undoItem(id){
-    const undo_item = document.getElementById(id);
-    const item_name = undo_item.children[1].innerText;
-    const item_quantity = undo_item.children[2].innerText;
-
-    const undoItem = `
-        <tr id=${id}>
-            <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)" /></td>
-            <td>${item_name}</td>
-            <td>${item_quantity}</td>
-            <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
-        </tr>`
-    
-    shopping_list[0].innerHTML += undoItem;
-
-    undo_item.parentNode.removeChild(undo_item);
+function undoItem(event){
+    let done_shopping_item = event.target.parentNode.parentNode;
+    const done_btn = `<input class="done" type="checkbox" onClick="moveItem(event)" />`;  
+    const undone_shopping_item = createItemTD(done_shopping_item, done_btn);
+    shopping_list[0].innerHTML += undone_shopping_item;
+    done_shopping_item.parentNode.removeChild(done_shopping_item);
 }
 
 //done history
 const historyArr = [];
-function toggleDown(){   
-    document.getElementById("history").classList.remove("toggle");    
+function toggleDown(event){   
+    event.target.parentNode.nextElementSibling.classList.toggle("toggle");   
     loadHistory();
-    console.log(historyArr);
-    checkToggle();    
+    checkToggle(event);    
 }
 
-function toggleUp(){
-    document.getElementById("history").classList.add("toggle");
-    checkToggle();
-}
-
-function checkToggle(){
-    const iconFas = document.querySelectorAll(".js");
-    const iconFasHasToggle = document.querySelector(".toggle")
-    for(let i = 0; i < iconFas.length; i++){
-        iconFas[i].contains(iconFasHasToggle) 
-        ? iconFas[i].classList.remove("toggle")
-        : iconFas[i].classList.add("toggle")
-    }
+function checkToggle(event){
+    const iconFas = event.target;
+    const iconFasHasToggle = iconFas.getAttribute("class");
+    iconFasHasToggle.indexOf("toggle") !== -1
+    ? iconFas.classList.remove("toggle")
+    : iconFas.classList.add("toggle")
 }
 
 function loadHistory(){
@@ -103,7 +93,6 @@ function loadHistory(){
             name: done_history[i].children[1].innerText,
             quantity: done_history[i].children[2].innerText
         }       
-
         let index = -1;
         for(let j = 0; j < historyArr.length; j++){                
             if(historyArr[j].id === done_item.id){

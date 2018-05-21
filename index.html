@@ -20,8 +20,11 @@
             </fieldset>
         </form>
 
-        <table id="shopping-list">
-            <h3>Not Done</h3>
+    
+        <h3>Not Done  
+            <i class="fas fa-chevron-down" onClick="toggleDown(event)"></i>      
+        </h3>
+        <table id="shopping-list" class="toggle">
             <thead>
                 <tr>
                     <th>Done</th>
@@ -29,55 +32,46 @@
                     <th>Quantity</th>
                     <th>Delete</th>
                 </tr>
-            </thead>
+            </thead>            
             <tbody>
                 <tr id="1">
-                    <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)" /></td>
+                    <td><input class="done" type="checkbox" onClick="moveItem(event)" /></td>
                     <td>Chicken</td>
                     <td>400 gram</td>
-                    <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+                    <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
                 </tr>
                 <tr id="2">
-                    <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)"/></td>
+                    <td><input class="done" type="checkbox" onClick="moveItem(event)"/></td>
                     <td>Light bulb</td>
                     <td>2</td>
-                    <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+                    <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
                 </tr>
                 <tr id="3">
-                    <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)" /></td>
+                    <td><input class="done" type="checkbox" onClick="moveItem(event)" /></td>
                     <td>Potato</td>
                     <td>5</td>
-                    <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+                    <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
                 </tr>
                 <tr id="4">
-                    <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)"/></td>
+                    <td><input class="done" type="checkbox" onClick="moveItem(event)"/></td>
                     <td>Noodle</td>
                     <td>1</td>
-                    <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+                    <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
                 </tr>
                 <tr id="5">
-                    <td><input class="done" type="checkbox" onClick="moveItem(this.parentNode.parentNode.id)" /></td>
+                    <td><input class="done" type="checkbox" onClick="moveItem(event)" /></td>
                     <td>Rice</td>
                     <td>1</td>
-                    <td><i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i></td>
+                    <td><i onClick="deleteItem(event)" class="fas fa-trash"></i></td>
                 </tr>
 
             </tbody>
         </table>
 
-        <table id="done-list">
-            <h3>Done 
-                <i class="fas fa-chevron-down js" onClick="toggleDown()"></i>
-                <i class="fas fa-chevron-up js toggle" onClick="toggleUp()"></i>
-                <div id="history" class="toggle">
-                    <h4>Done History</h4>
-                    <strong>id | name | quantity</strong>
-                    <div id="history-output">
-                        
-                    </div>
-                </div>
-            </h3>           
-           
+        <h3>Done 
+            <i class="fas fa-chevron-down" onClick="toggleDown(event)"></i>
+        </h3> 
+        <table id="done-list" class="toggle">
             <thead>
                 <tr>
                     <th>Undo</th>
@@ -89,16 +83,26 @@
             <tbody>
                 <tr id="0">
                     <td>
-                        <i onClick="undoItem(this.parentNode.parentNode.id)" class="fas fa-undo"></i>
+                        <i onClick="undoItem(event)" class="fas fa-undo"></i>
                     </td>
                     <td class="cross">Beef</td>
                     <td>250 gram</td>
                     <td>
-                        <i onClick="deleteItem(this.parentNode.parentNode.id)" class="fas fa-trash"></i>
+                        <i onClick="deleteItem(event)" class="fas fa-trash"></i>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <h3>History 
+            <i class="fas fa-chevron-down" onClick="toggleDown(event)"></i>
+        </h3>           
+        <div id="history" class="toggle">
+            <strong>id | name | quantity</strong>
+            <div id="history-output">
+            
+            </div>
+        </div>
     </div>
     <script src="./script.js" type="text/javascript"></script>
 </body>
