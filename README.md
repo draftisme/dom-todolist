@@ -20,3 +20,10 @@
     }
     document.geElementById("#output").innerHTML += newItem;
   ```
+  
+  4. OR: onClick="deleteItem(event)"
+  ```
+    function deleteItem(event){
+      const selectedItem = event.target.parentNode.parentNode;
+    }
+  ```
